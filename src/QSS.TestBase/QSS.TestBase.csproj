@@ -2,6 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Qss.TestBase</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.8.0-beta</Version>
+    <Authors>Rungwiroon Komalittipong</Authors>
+    <Company>QueueStack Solution</Company>
+    <RepositoryUrl>https://github.com/rungwiroon/QSS.Base</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/rungwiroon/QSS.Base</PackageProjectUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\QSS.Base\QSS.Base.csproj" />
+  </ItemGroup>
 
 </Project>

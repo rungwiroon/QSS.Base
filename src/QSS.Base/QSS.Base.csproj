@@ -5,9 +5,13 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>QueueStack Solution</Company>
     <Authors>Rungwiroon Komalittipong</Authors>
-    <Version>1.0.0-beta</Version>
+    <Version>0.8.1-beta</Version>
     <RootNamespace>Qss.Base</RootNamespace>
     <AssemblyName>QSS.Base</AssemblyName>
+    <PackageProjectUrl>https://github.com/rungwiroon/QSS.Base</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rungwiroon/QSS.Base</RepositoryUrl>
+    <PackageReleaseNotes>Beta release for testing.</PackageReleaseNotes>
+    <Description />
   </PropertyGroup>
 
   <ItemGroup>
