@@ -1,4 +1,6 @@
-﻿namespace Qss.Base.Services
+﻿using Qss.Base.Models;
+
+namespace Qss.Base.Services
 {
     public interface ICrudService<TModel>
     {
@@ -8,5 +10,7 @@
 
         void Delete<T>(T id)
             where T : struct;
+
+        GridResponseModel<TModel> Get(GridRequestModel gridModel, string username);
     }
 }
