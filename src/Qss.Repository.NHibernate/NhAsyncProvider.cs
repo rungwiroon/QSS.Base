@@ -1,23 +1,21 @@
-﻿using System;
+﻿using NHibernate.Linq;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using Qss.Base.Queries;
+using System.Threading.Tasks;
 
-namespace Qss.TestBase.Queries
+namespace Qss.Repository.NHibernate
 {
-    public class FakeAsyncProvider : IAsyncProvider
+    public class NhAsyncProvider : Qss.Base.Queries.IAsyncProvider
     {
         public Task<TSource> SingleOrDefaultAsync<TSource>(IQueryable<TSource> source, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return Task.FromResult(source.SingleOrDefault());
+            return source.SingleOrDefaultAsync();
         }
 
         public Task<List<TSource>> ToListAsync<TSource>(IQueryable<TSource> source, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return Task.FromResult(source.ToList());
+            return source.ToListAsync();
         }
     }
 }
