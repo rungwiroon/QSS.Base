@@ -10,6 +10,7 @@ namespace Qss.Base.Patterns
     }
 
     public interface IRepository<T> : IRepository
+        where T : class
     {
         T Get<TId>(TId id)
             where TId : struct;
