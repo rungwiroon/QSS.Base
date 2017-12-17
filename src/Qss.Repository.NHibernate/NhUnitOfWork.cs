@@ -20,21 +20,16 @@ namespace Qss.Repository.NHibernate
 
         protected IsolationLevel _isolationLevel = IsolationLevel.ReadCommitted;
 
-        protected IEventLog _eventLog;
-
         protected object _locker = new object();
         protected Dictionary<Type, IRepository> _repositoryList = new Dictionary<Type, IRepository>();
-
-        public bool HasErrors => throw new NotImplementedException();
 
         protected NhUnitOfWork()
         {
         }
 
-        public NhUnitOfWork(ISession session, IEventLog eventLog)
+        public NhUnitOfWork(ISession session)
         {
             _session = session;
-            _eventLog = eventLog;
 
             BeginTransaction();
         }
@@ -67,24 +62,10 @@ namespace Qss.Repository.NHibernate
         {
             if (_transaction != null && _transaction.IsActive)
             {
-                try
-                {
-                    _transaction.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    _eventLog.WriteEntry(ex.ToString(), EventLogEntryType.Warning);
-                }
+                _transaction.Dispose();
             }
 
-            try
-            {
-                _session.Dispose();
-            }
-            catch (Exception ex)
-            {
-                _eventLog.WriteEntry(ex.ToString(), EventLogEntryType.Warning);
-            }
+            _session.Dispose();
         }
 
         public virtual void Flush()
@@ -159,21 +140,6 @@ namespace Qss.Repository.NHibernate
         public virtual object GetRepository(Type type)
         {
             return GetObject(type);
-        }
-
-        public virtual int GetNextSequenceValue(string sequenceName)
-        {
-            var query = _session.CreateSQLQuery("select nextval('" + sequenceName + "')");
-
-            var result = query.UniqueResult<long>();
-            return (int)result;
-        }
-
-        public virtual void ResetSequenceValue(string sequenceName, int value)
-        {
-            var query = _session.CreateSQLQuery("ALTER SEQUENCE " + sequenceName + " RESTART WITH " + value + ";");
-
-            query.UniqueResult();
         }
 
         public virtual IQueryable<T> Query<T>()

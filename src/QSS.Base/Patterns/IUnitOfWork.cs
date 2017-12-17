@@ -20,8 +20,6 @@ namespace Qss.Base.Patterns
 
         void Unlock(object obj);
 
-        bool HasErrors { get; }
-
         void ClearCache();
 
         void Attach(object obj);
@@ -29,9 +27,5 @@ namespace Qss.Base.Patterns
         void Detach(object obj);
 
         void DisposeSession();
-
-        int GetNextSequenceValue(string sequenceName);
-
-        void ResetSequenceValue(string sequenceName, int value);
     }
 }

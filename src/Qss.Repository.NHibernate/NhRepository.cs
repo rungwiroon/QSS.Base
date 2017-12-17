@@ -14,7 +14,6 @@ namespace Qss.Repository.NHibernate
         where T : class
     {
         protected ISession _session;
-        protected string _sequenceName;
 
         static NhRepository()
         {
@@ -102,26 +101,6 @@ namespace Qss.Repository.NHibernate
                 .DeleteAsync(cancellationToken);
         }
 
-        public int GetNextSequenceValue()
-        {
-            //if (_sequenceName == null) throw new InvalidOperationException("No sequence name. Please set sequence name before call this method.");
-
-            //var result = _session.GetNextSequenceValue(_sequenceName);
-
-            //return result;
-
-            throw new NotImplementedException();
-        }
-
-        public void ResetSequenceValue(int value)
-        {
-            //if (_sequenceName == null) throw new InvalidOperationException("No sequence name. Please set sequence name before call this method.");
-
-            //_session.ResetSequenceValue(_sequenceName, value);
-
-            throw new NotImplementedException();
-        }
-
         public IQueryable<T> Query
         {
             get
@@ -129,7 +108,5 @@ namespace Qss.Repository.NHibernate
                 return _session.Query<T>();
             }
         }
-
-        public bool HasErrors { get; protected set; }
     }
 }

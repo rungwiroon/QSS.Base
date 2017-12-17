@@ -6,7 +6,6 @@ namespace Qss.Base.Patterns
 {
     public interface IRepository
     {
-        bool HasErrors { get; }
     }
 
     public interface IRepository<T> : IRepository
@@ -36,10 +35,6 @@ namespace Qss.Base.Patterns
         Task DeleteAsync<TId>(TId id,
             CancellationToken cancellationToken = default(CancellationToken))
             where TId : struct;
-
-        int GetNextSequenceValue();
-
-        void ResetSequenceValue(int value);
 
         IQueryable<T> Query { get; }
     }
