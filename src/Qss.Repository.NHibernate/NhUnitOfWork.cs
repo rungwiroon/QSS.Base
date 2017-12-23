@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using Qss.Base.Models;
 using Qss.Base.Patterns;
 using QSS.Base;
 using System;
@@ -130,7 +131,7 @@ namespace Qss.Repository.NHibernate
         }
 
         public virtual IRepository<T> GetRepository<T>()
-            where T : class
+            where T : class, IEntity
         {
             var repository = GetObject<NhRepository<T>>();
 

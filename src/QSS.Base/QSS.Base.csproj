@@ -24,6 +24,7 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <Compile Remove="IEventLog.cs" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="1.1.0"/>
   </ItemGroup>
-
 </Project>

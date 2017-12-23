@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Qss.Repository.NHibernate
 {
     public class NhRepository<T> : IRepository<T>
-        where T : class
+        where T : class, IEntity
     {
         protected ISession _session;
 
