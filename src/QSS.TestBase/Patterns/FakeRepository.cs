@@ -37,6 +37,11 @@ namespace Qss.TestBase.Patterns
         {
             dynamic dbModelDyn = dbModel;
 
+            if(!IsSubclassOfRawGeneric(typeof(IEntityKey<>), typeof(T)))
+            {
+                return null;
+            }
+
             if (!(dbModelDyn.Id is int) 
                 && !(dbModelDyn.Id is long))
             {
@@ -59,6 +64,20 @@ namespace Qss.TestBase.Patterns
             return lastId;
         }
 
+        private static bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
+        {
+            while (toCheck != null && toCheck != typeof(object))
+            {
+                var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
+                if (generic == cur)
+                {
+                    return true;
+                }
+                toCheck = toCheck.BaseType;
+            }
+            return false;
+        }
+
         public void Update(T dbModel)
         {
 
@@ -68,15 +87,27 @@ namespace Qss.TestBase.Patterns
         {
             dynamic dbModelDyn = dbModel;
 
-            var obj = _list.SingleOrDefault(l => (bool)(((dynamic)l).Id).Equals(
+            if (IsSubclassOfRawGeneric(typeof(IEntityKey<>), typeof(T)))
+            {
+                var obj = _list.SingleOrDefault(l => (bool)(((dynamic)l).Id).Equals(
                 (dbModelDyn.Id)));
-            _list.Remove(obj);
+                _list.Remove(obj);
+            }
+
+            else
+            {
+                var obj = _list.SingleOrDefault(l => l.Equals(dbModelDyn));
+                _list.Remove(obj);
+            }
         }
 
         public void Delete<TId>(TId id) where TId : struct
         {
-            var obj = _list.SingleOrDefault(l => ((IEntityKey<TId>)l).Id.Equals(id));
-            _list.Remove(obj);
+            if (IsSubclassOfRawGeneric(typeof(IEntityKey<>), typeof(T)))
+            {
+                var obj = _list.SingleOrDefault(l => ((IEntityKey<TId>)l).Id.Equals(id));
+                _list.Remove(obj);
+            }
         }
 
         public IQueryable<T> Query

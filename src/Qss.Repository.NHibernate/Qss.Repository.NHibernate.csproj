@@ -11,7 +11,7 @@
     <RepositoryUrl />
     <RootNamespace>Qss.Repository.NHibernate</RootNamespace>
     <AssemblyName>QSS.Repository.NHibernate</AssemblyName>
-    <Version>0.8.6-beta</Version>
+    <Version>0.8.7-beta</Version>
     <PackageId>QSS.Repository.NHibernate</PackageId>
   </PropertyGroup>
 

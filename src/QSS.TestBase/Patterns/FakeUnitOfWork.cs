@@ -11,11 +11,16 @@ namespace Qss.TestBase.Patterns
     public class FakeUnitOfWork
     {
         protected object _locker = new object();
-        protected Dictionary<Type, IRepository> _repositoryDictionary;
+        protected Dictionary<Type, IRepository> Repositories { get; private set; }
 
-        public FakeUnitOfWork(Dictionary<Type, IRepository> repositoryDictionary)
+        public FakeUnitOfWork()
         {
-            _repositoryDictionary = repositoryDictionary;
+            Repositories = new Dictionary<Type, IRepository>();
+        }
+
+        public FakeUnitOfWork(Dictionary<Type, IRepository> repositories)
+        {
+            Repositories = repositories;
         }
 
         public bool HasErrors => throw new NotImplementedException();
@@ -93,9 +98,9 @@ namespace Qss.TestBase.Patterns
 
             lock (_locker)
             {
-                if (_repositoryDictionary.ContainsKey(type))
+                if (Repositories.ContainsKey(type))
                 {
-                    repo = _repositoryDictionary[type];
+                    repo = Repositories[type];
                 }
             }
 
