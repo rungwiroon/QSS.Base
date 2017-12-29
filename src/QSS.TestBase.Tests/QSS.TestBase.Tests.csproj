@@ -49,7 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityModel.cs" />
+    <Compile Include="EntityModel2.cs" />
     <Compile Include="FakeRepositoryTests.cs" />
+    <Compile Include="FakeUnitOfWorkTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

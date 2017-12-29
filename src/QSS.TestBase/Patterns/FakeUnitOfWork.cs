@@ -18,6 +18,22 @@ namespace Qss.TestBase.Patterns
             Repositories = new Dictionary<Type, IRepository>();
         }
 
+        public FakeUnitOfWork(IEnumerable<IRepository> repositories)
+            : this()
+        {
+            foreach(var repository in repositories)
+            {
+                var repoType = repository.GetType();
+
+                if (repoType.IsGenericType)
+                {
+                    Type type = repoType.GetGenericArguments()[0];
+
+                    Repositories.Add(type, repository);
+                }
+            }
+        }
+
         public FakeUnitOfWork(Dictionary<Type, IRepository> repositories)
         {
             Repositories = repositories;
@@ -86,12 +102,6 @@ namespace Qss.TestBase.Patterns
         {
         }
 
-        protected T GetObject<T>()
-            where T : IRepository
-        {
-            return (T)GetObject(typeof(T));
-        }
-
         protected object GetObject(Type type)
         {
             object repo = null;
@@ -110,9 +120,7 @@ namespace Qss.TestBase.Patterns
         public IRepository<T> GetRepository<T>()
             where T : class, IEntity
         {
-            var repository = GetObject<FakeRepository<T>>();
-
-            return repository;
+            return (IRepository<T>)GetObject(typeof(T));
         }
 
         public object GetRepository(Type type)
