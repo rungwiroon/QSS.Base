@@ -7,7 +7,7 @@ namespace Qss.Base.Patterns
     public interface IUnitOfWork : IDisposable
     {
         IRepository<T> GetRepository<T>()
-            where T : class, IEntity;
+            where T : class, IEntity, new();
 
         object GetRepository(Type type);
 

@@ -131,7 +131,7 @@ namespace Qss.Repository.NHibernate
         }
 
         public virtual IRepository<T> GetRepository<T>()
-            where T : class, IEntity
+            where T : class, IEntity, new()
         {
             var repository = GetObject<NhRepository<T>>();
 

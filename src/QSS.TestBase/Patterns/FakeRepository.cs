@@ -37,7 +37,7 @@ namespace Qss.TestBase.Patterns
         {
             dynamic dbModelDyn = dbModel;
 
-            if(!IsSubclassOfRawGeneric(typeof(IEntityKey<>), typeof(T)))
+            if(!IsImplementedInterface(typeof(IEntityKey<>), typeof(T)))
             {
                 return null;
             }
@@ -64,10 +64,17 @@ namespace Qss.TestBase.Patterns
             return lastId;
         }
 
-        private static bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
+        private static bool IsImplementedInterface(Type generic, Type toCheck)
         {
             while (toCheck != null && toCheck != typeof(object))
             {
+                if (toCheck.GetInterfaces().Any(i =>
+                {
+                    i = i.IsGenericType ? i.GetGenericTypeDefinition() : i;
+                    return i == generic;
+                }))
+                    return true;
+
                 var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
                 if (generic == cur)
                 {
@@ -87,7 +94,7 @@ namespace Qss.TestBase.Patterns
         {
             dynamic dbModelDyn = dbModel;
 
-            if (IsSubclassOfRawGeneric(typeof(IEntityKey<>), typeof(T)))
+            if (IsImplementedInterface(typeof(IEntityKey<>), typeof(T)))
             {
                 var obj = _list.SingleOrDefault(l => (bool)(((dynamic)l).Id).Equals(
                 (dbModelDyn.Id)));
@@ -103,7 +110,7 @@ namespace Qss.TestBase.Patterns
 
         public void Delete<TId>(TId id) where TId : struct
         {
-            if (IsSubclassOfRawGeneric(typeof(IEntityKey<>), typeof(T)))
+            if (IsImplementedInterface(typeof(IEntityKey<>), typeof(T)))
             {
                 var obj = _list.SingleOrDefault(l => ((IEntityKey<TId>)l).Id.Equals(id));
                 _list.Remove(obj);
