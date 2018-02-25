@@ -55,9 +55,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\QSS.Base\QSS.Base.csproj">
       <Project>{620C26A9-907B-461F-9D4D-DB0E1D42BCE9}</Project>
       <Name>QSS.Base</Name>
@@ -66,6 +63,9 @@
       <Project>{0749c173-58bf-441a-9933-dad826584700}</Project>
       <Name>QSS.TestBase</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

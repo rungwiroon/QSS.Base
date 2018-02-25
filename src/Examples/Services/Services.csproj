@@ -44,11 +44,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Examples\Entities\Entities.csproj">
+    <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{48527538-cbed-4f4d-ab21-7690a59a4ba2}</Project>
       <Name>Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QSS.Base\QSS.Base.csproj">
+    <ProjectReference Include="..\..\QSS.Base\QSS.Base.csproj">
       <Project>{620c26a9-907b-461f-9d4d-db0e1d42bce9}</Project>
       <Name>QSS.Base</Name>
     </ProjectReference>
