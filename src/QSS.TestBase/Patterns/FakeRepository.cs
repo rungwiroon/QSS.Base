@@ -1,4 +1,5 @@
-﻿using Qss.Base.Models;
+﻿using LanguageExt;
+using Qss.Base.Models;
 using Qss.Base.Patterns;
 using Qss.Base.Queries;
 using Qss.TestBase.Queries;
@@ -28,7 +29,7 @@ namespace Qss.TestBase.Patterns
             _list = collection;
         }
 
-        public T Get<TId>(TId id) where TId : struct
+        public Option<T> Get<TId>(TId id) where TId : struct
         {
             return _list.SingleOrDefault(l => ((IEntityKey<TId>)l).Id.Equals(id));
         }
@@ -125,7 +126,7 @@ namespace Qss.TestBase.Patterns
             }
         }
 
-        public Task<T> GetAsync<TId>(TId id, CancellationToken cancellationToken = default(CancellationToken)) where TId : struct
+        public Task<Option<T>> GetAsync<TId>(TId id, CancellationToken cancellationToken = default(CancellationToken)) where TId : struct
         {
             return Task.FromResult(Get(id));
         }

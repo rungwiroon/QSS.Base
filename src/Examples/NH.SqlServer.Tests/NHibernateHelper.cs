@@ -4,7 +4,6 @@ using NHibernate.Connection;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Mapping.ByCode;
-using NHibernate.SqlServer.Mappings;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
-﻿using Qss.Base.Models;
+﻿using LanguageExt;
+using Qss.Base.Models;
 
 namespace Qss.Base.Patterns
 {
@@ -7,9 +8,9 @@ namespace Qss.Base.Patterns
     {
         TModel Get(TKey id, string username);
 
-        GridResponseModel<TModel> Get(GridRequestModel gridModel, TSearchModel searchModel, string username);
+        GridResponseModel<TModel> Get(GridRequestModel gridModel, Option<TSearchModel> searchModel, string username);
 
-        TModel[] Get(TSearchModel searchModel, string username);
+        TModel[] Get(Option<TSearchModel> searchModel, string username);
 
         int Create(TModel model, string username);
 

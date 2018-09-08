@@ -34,5 +34,31 @@ namespace Examples.NHibernate.SqlServer.Tests
                     .Count());
             }
         }
+
+        [TestMethod]
+        public void TestInsertUpdateDelete()
+        {
+            using (var session = NHibernateHelper.SessionFactory.OpenSession())
+            {
+                var newItem = new ItemEntity()
+                {
+                    Name = "NewItem"
+                };
+
+                session.Save(newItem);
+
+                Assert.AreNotEqual(0, newItem.Id);
+
+                newItem.Name = "UpdatedItem";
+
+                session.Flush();
+
+                Assert.AreEqual("UpdatedItem", newItem.Name);
+
+                session.Delete(newItem);
+
+                session.Flush();
+            }
+        }
     }
 }

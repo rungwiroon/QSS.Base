@@ -1,4 +1,5 @@
-﻿using Qss.Base.Models;
+﻿using LanguageExt;
+using Qss.Base.Models;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,9 +13,9 @@ namespace Qss.Base.Patterns
     public interface IRepository<T> : IRepository
         where T : class, IEntity
     {
-        T Get<TId>(TId id)
+        Option<T> Get<TId>(TId id)
             where TId : struct;
-        Task<T> GetAsync<TId>(TId id,
+        Task<Option<T>> GetAsync<TId>(TId id,
             CancellationToken cancellationToken = default(CancellationToken))
             where TId : struct;
 

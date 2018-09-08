@@ -1,4 +1,5 @@
 ﻿using Examples.Entities;
+using LanguageExt;
 using Qss.Base.Patterns;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace Examples.Services
             return _repo.Query.ToList();
         }
 
-        public ItemEntity Get(int id)
+        public Option<ItemEntity> Get(int id)
         {
             return _repo.Get(id);
         }

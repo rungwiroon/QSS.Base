@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using LanguageExt;
+using NHibernate;
 using NHibernate.Linq;
 using Qss.Base.Models;
 using Qss.Base.Patterns;
@@ -27,20 +28,26 @@ namespace Qss.Repository.NHibernate
             _session = session;
         }
 
-        public T Get<TId>(TId id)
+        public Option<T> Get<TId>(TId id)
             where TId : struct
         {
-            return _session.Get<T>(id);
+            var entity = _session.Get<T>(id);
+
+            if (entity == null)
+                return Option<T>.None;
+
+            return Option<T>.Some(entity);
         }
 
-        public Task<T> GetAsync<TId>(TId id,
+        public Task<Option<T>> GetAsync<TId>(TId id,
             CancellationToken cancellationToken = default(CancellationToken))
             where TId : struct
         {
-            return _session.GetAsync<T>(id, cancellationToken);
+            return _session.GetAsync<T>(id, cancellationToken)
+                .Map(x => Option<T>.Some(x));
         }
 
-        public virtual object Create(T dbModel)
+        public object Create(T dbModel)
         {
             var id = _session.Save(dbModel);
 
@@ -49,7 +56,7 @@ namespace Qss.Repository.NHibernate
             return id;
         }
 
-        public virtual async Task<object> CreateAsync(T dbModel,
+        public async Task<object> CreateAsync(T dbModel,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             var id = await _session.SaveAsync(dbModel, cancellationToken);
